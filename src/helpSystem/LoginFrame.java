@@ -10,7 +10,7 @@ import java.sql.ResultSet;
 public class LoginFrame extends JFrame {
     private JTextField usernameField;
     private JPasswordField passwordField;
-    private JButton loginButton;
+    private JButton loginButton, exitButton;
 
     public LoginFrame() {
         setTitle("Login");
@@ -19,17 +19,22 @@ public class LoginFrame extends JFrame {
         setLocationRelativeTo(null);
 
         JPanel panel = new JPanel();
-        panel.setLayout(new BoxLayout(panel, BoxLayout.Y_AXIS));
+        //panel.setLayout(new BoxLayout(panel, BoxLayout.Y_AXIS));
 
+        JPanel buttonPanel = new JPanel();
+        buttonPanel.setLayout(new FlowLayout());
+        
         usernameField = new JTextField(15);
         passwordField = new JPasswordField(15);
         loginButton = new JButton("Login");
+        exitButton = new JButton("Exit");
 
         panel.add(new JLabel("Username:"));
         panel.add(usernameField);
         panel.add(new JLabel("Password:"));
         panel.add(passwordField);
         panel.add(loginButton);
+        panel.add(exitButton);
 
         add(panel);
 
