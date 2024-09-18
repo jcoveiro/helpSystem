@@ -71,6 +71,14 @@ public class LoginFrame extends JFrame {
                 }
             }
         });
+
+        exitButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                dispose(); // Close the LoginFrame
+                System.exit(0); // Exit the application
+            }
+        });
     }
 
     
