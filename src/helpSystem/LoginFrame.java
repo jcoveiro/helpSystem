@@ -13,6 +13,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 
+// Graphic Interface frame for user login
 public class LoginFrame extends JFrame {
     private JTextField usernameField;
     private JPasswordField passwordField;
@@ -66,6 +67,15 @@ public class LoginFrame extends JFrame {
         add(panel, BorderLayout.CENTER);
         add(buttonPanel, BorderLayout.SOUTH);
 
+        /**
+         * Login button action listener.
+         * 
+         * When the login button is clicked, it retrieves the username and password from the text fields,
+         * and attempts to log in to the system. If the credentials are valid, it opens either the AdminFrame
+         * or UserFrame depending on the user's role, and closes the LoginFrame. If the credentials are invalid,
+         * it displays an error message.
+         */
+        
         loginButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -82,17 +92,17 @@ public class LoginFrame extends JFrame {
                     if (rs.next()) {
                         String role = rs.getString("role");
                         if (role.equals("admin")) {
-                            // Abrir tela de administrador
+                            // Opens Admin Frame
                             AdminFrame adminFrame = new AdminFrame();
                             adminFrame.setVisible(true);
                         } else {
-                            // Abrir tela de usuário
+                            // Opens User Frame
                             UserFrame userFrame = new UserFrame();
                             userFrame.setVisible(true);
                         }
-                        dispose(); // Fecha a tela de login
+                        dispose(); // Closes login
                     } else {
-                        JOptionPane.showMessageDialog(null, "Login falhou. Verifique suas credenciais.");
+                        JOptionPane.showMessageDialog(null, "Login failed. Wrong credentials.");
                     }
                 } catch (Exception ex) {
                     ex.printStackTrace();
@@ -100,6 +110,13 @@ public class LoginFrame extends JFrame {
             }
         });
 
+
+        /**
+         * Exit button action listener.
+         * 
+         * When the exit button is clicked, it closes the LoginFrame and exits the application.
+         */
+        
         exitButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
