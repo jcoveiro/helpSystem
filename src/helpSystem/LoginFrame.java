@@ -17,7 +17,7 @@ import java.sql.ResultSet;
 public class LoginFrame extends JFrame {
     private JTextField usernameField;
     private JPasswordField passwordField;
-    private JButton loginButton, exitButton;
+    private JButton loginButton, clearButton/* , exitButton */;
 
     public LoginFrame() {
         setTitle("Login");
@@ -50,22 +50,25 @@ public class LoginFrame extends JFrame {
         passwordField = new JPasswordField(15);
         panel.add(passwordField, gbc);
 
-        
-        usernameField = new JTextField(15);
-        passwordField = new JPasswordField(15);
+        // Initialize buttons
         loginButton = new JButton("Login");
-        exitButton = new JButton("Exit");
+        clearButton = new JButton("Clear");
+        //exitButton = new JButton("Exit");
         
-        // Button Panel
+        // Button Panel for login and clear
         JPanel buttonPanel = new JPanel();
-        loginButton = new JButton("Login");
-        exitButton = new JButton("Exit");
         buttonPanel.add(loginButton);
-        buttonPanel.add(exitButton);
+        buttonPanel.add(clearButton);
+        
+		/*
+		 * // Exit button on a separate panel (to be in a separate line) JPanel
+		 * exitPanel = new JPanel(); exitPanel.add(exitButton);
+		 */
 
         // Add panels to the frame
         add(panel, BorderLayout.CENTER);
         add(buttonPanel, BorderLayout.SOUTH);
+        //add(exitPanel, BorderLayout.PAGE_END);
 
         /**
          * Login button action listener.
@@ -110,23 +113,34 @@ public class LoginFrame extends JFrame {
             }
         });
 
-
         /**
-         * Exit button action listener.
+         * Clear button action listener. 
+         * When the clear button is clicked, the username and password fields are cleared.
+         */
+        clearButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+            	usernameField.setText("");  // Clear username field
+                passwordField.setText("");  // Clear password field
+            }
+        });
+
+        
+        /**
+         * Exit button action listener (not implemented in this code snippet).
          * 
          * When the exit button is clicked, it closes the LoginFrame and exits the application.
          */
         
-        exitButton.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                dispose(); // Close the LoginFrame
-                System.exit(0); // Exit the application
-            }
-        });
+        /**exitButton.addActionListener(new ActionListener() {
+         *   @Override
+         *   public void actionPerformed(ActionEvent e) {
+         *       dispose(); // Close the LoginFrame
+         *       System.exit(0); // Exit the application
+         *   }
+         * });
+         */
     }
-
-    
 
     
 }
