@@ -13,6 +13,7 @@ public class UserFrame extends JFrame {
     private JTextArea requestTextArea;
     private JButton newRequestButton;
     private JButton refreshButton;
+    private JButton returnButton;
 
     public UserFrame() {
         setTitle("User Dashboard");
@@ -20,7 +21,7 @@ public class UserFrame extends JFrame {
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setLocationRelativeTo(null);
 
-        // Painel principal
+        // Painel principal/ Main Panel
         JPanel panel = new JPanel(new BorderLayout());
 
         // Tabela de solicitações
@@ -36,11 +37,13 @@ public class UserFrame extends JFrame {
 
         // Painel de botões
         JPanel buttonPanel = new JPanel();
-        newRequestButton = new JButton("Nova Solicitação");
-        refreshButton = new JButton("Atualizar");
+        newRequestButton = new JButton("Create Solicitation");
+        refreshButton = new JButton("Refresh");
+        returnButton = new JButton("Return");
 
         buttonPanel.add(newRequestButton);
         buttonPanel.add(refreshButton);
+        buttonPanel.add(returnButton);
 
         panel.add(buttonPanel, BorderLayout.SOUTH);
 
@@ -60,12 +63,26 @@ public class UserFrame extends JFrame {
                 refreshRequestTable();
             }
         });
+        
+		
+		returnButton.addActionListener(new ActionListener() {
+		  
+		  @Override public void actionPerformed(ActionEvent e) { 
+			  returnLogin(); 
+			  }
+		});
+		 
 
         // Carregar dados iniciais
         refreshRequestTable();
     }
 
-    private void createNewRequest() {
+    private Object newJButton(String string) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	private void createNewRequest() {
         String requestText = requestTextArea.getText();
         if (!requestText.isEmpty()) {
             RequestController.createRequest(getCurrentUserId(), requestText);
@@ -82,6 +99,13 @@ public class UserFrame extends JFrame {
         for (Request request : requests) {
             requestModel.addRow(new Object[]{request.getId(), request.getRequestText(), request.getResponseText(), request.getStatus()});
         }
+    }
+    
+    // To Return to Login Page
+    private void returnLogin() {
+    	
+    	new LoginFrame().setVisible(true);
+        dispose(); // Closes the current frame (UserFrame)
     }
 
     // Método fictício para obter o ID do usuário atual
