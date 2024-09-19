@@ -13,11 +13,11 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 
-// Graphic Interface frame for user login
+//Graphic Interface frame for user login
 public class LoginFrame extends JFrame {
     private JTextField usernameField;
     private JPasswordField passwordField;
-    private JButton loginButton, clearButton/* , exitButton */;
+    private JButton loginButton, clearButton, registerButton, exitButton;
 
     public LoginFrame() {
         setTitle("Login");
@@ -53,22 +53,28 @@ public class LoginFrame extends JFrame {
         // Initialize buttons
         loginButton = new JButton("Login");
         clearButton = new JButton("Clear");
-        //exitButton = new JButton("Exit");
+        registerButton = new JButton("Register");
+        exitButton = new JButton("Exit");
         
         // Button Panel for login and clear
         JPanel buttonPanel = new JPanel();
         buttonPanel.add(loginButton);
         buttonPanel.add(clearButton);
+        buttonPanel.add(registerButton);
+        buttonPanel.add(exitButton);
         
+		
 		/*
-		 * // Exit button on a separate panel (to be in a separate line) JPanel
-		 * exitPanel = new JPanel(); exitPanel.add(exitButton);
+		 * // Exit button on a separate panel (to be in a separate line) JPanel JPanel
+		 * secondButtonPanel = new JPanel(); secondButtonPanel.add(registerButton);
+		 * secondButtonPanel.add(exitButton);
 		 */
+		
 
         // Add panels to the frame
         add(panel, BorderLayout.CENTER);
         add(buttonPanel, BorderLayout.SOUTH);
-        //add(exitPanel, BorderLayout.PAGE_END);
+		/* add(secondButtonPanel, BorderLayout.SOUTH); */
 
         /**
          * Login button action listener.
@@ -95,15 +101,15 @@ public class LoginFrame extends JFrame {
                     if (rs.next()) {
                         String role = rs.getString("role");
                         if (role.equals("admin")) {
-                            // Opens Admin Frame
+                        	// Opens Admin Frame
                             AdminFrame adminFrame = new AdminFrame();
                             adminFrame.setVisible(true);
                         } else {
-                            // Opens User Frame
+                        	// Opens User Frame
                             UserFrame userFrame = new UserFrame();
                             userFrame.setVisible(true);
                         }
-                        dispose(); // Closes login
+                        dispose(); /// Closes login
                     } else {
                         JOptionPane.showMessageDialog(null, "Login failed. Wrong credentials.");
                     }
@@ -113,10 +119,6 @@ public class LoginFrame extends JFrame {
             }
         });
 
-        /**
-         * Clear button action listener. 
-         * When the clear button is clicked, the username and password fields are cleared.
-         */
         clearButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -124,23 +126,30 @@ public class LoginFrame extends JFrame {
                 passwordField.setText("");  // Clear password field
             }
         });
+        
+		
+		exitButton.addActionListener(new ActionListener() {
+			@Override 
+			public void actionPerformed(ActionEvent e) { 
+				dispose(); // Close	the LoginFrame	
+			 System.exit(0); // Exit the application
+			} 
+		});
+		 
+        
+        
+        registerButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                openRegisterFrame();
+            }
 
-        
-        /**
-         * Exit button action listener (not implemented in this code snippet).
-         * 
-         * When the exit button is clicked, it closes the LoginFrame and exits the application.
-         */
-        
-        /**exitButton.addActionListener(new ActionListener() {
-         *   @Override
-         *   public void actionPerformed(ActionEvent e) {
-         *       dispose(); // Close the LoginFrame
-         *       System.exit(0); // Exit the application
-         *   }
-         * });
-         */
-    }
+			private void openRegisterFrame() {
+				new RegisterFrame();
+				dispose();
+			}
+        });
+    }   
 
     
 }
