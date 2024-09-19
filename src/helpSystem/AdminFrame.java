@@ -16,6 +16,7 @@ public class AdminFrame extends JFrame {
     private JButton addUserButton;
     private JButton deleteUserButton;
     private JButton updateUserButton;
+    private JButton returnButton;
 
     public AdminFrame() {
         setTitle("Admin Dashboard");
@@ -40,15 +41,17 @@ public class AdminFrame extends JFrame {
 
         // Painel de botões
         JPanel buttonPanel = new JPanel();
-        refreshButton = new JButton("Atualizar");
-        addUserButton = new JButton("Adicionar Usuário");
-        deleteUserButton = new JButton("Deletar Usuário");
-        updateUserButton = new JButton("Atualizar Usuário");
+        refreshButton = new JButton("Refresh");
+        addUserButton = new JButton("Add User");
+        deleteUserButton = new JButton("Delete User");
+        updateUserButton = new JButton("Refresh User");
+        returnButton = new JButton("Return");
 
         buttonPanel.add(refreshButton);
         buttonPanel.add(addUserButton);
         buttonPanel.add(deleteUserButton);
         buttonPanel.add(updateUserButton);
+        buttonPanel.add(returnButton);
 
         panel.add(buttonPanel, BorderLayout.SOUTH);
 
@@ -83,6 +86,13 @@ public class AdminFrame extends JFrame {
             }
         });
 
+        returnButton.addActionListener(new ActionListener() {
+  		  
+  		  @Override public void actionPerformed(ActionEvent e) { 
+  			  returnLogin(); 
+  			  }
+  		});
+        
         // Carregar dados iniciais
         refreshTables();
     }
@@ -140,6 +150,13 @@ public class AdminFrame extends JFrame {
         } else {
             JOptionPane.showMessageDialog(this, "Please select a user to update.");
         }
+    }
+    
+    // To Return to Login Page
+    private void returnLogin() {
+    	
+    	new LoginFrame().setVisible(true);
+        dispose(); // Closes the current frame (UserFrame)
     }
 
     public static void main(String[] args) {
