@@ -8,6 +8,7 @@ public class DatabaseConnection {
     private static final String URL = "jdbc:sqlite:helpsys.db";
 
     public static Connection getConnection() throws SQLException {
+        // Establish a connection to the database using the DriverManager
         return DriverManager.getConnection(URL);
     }
 }
